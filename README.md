@@ -22,7 +22,7 @@ This server is designed to address the SEO challenges often encountered when bui
 
     ```bash
     git clone <repository_url>
-    cd web-app-server
+    cd mobile-app-server
     ```
 
 2.  Install dependencies:
