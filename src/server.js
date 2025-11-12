@@ -44,6 +44,7 @@ app.get('/*', async (req, res) => {
 		// Check if the path matches product or business pattern
 		const productMatch = urlPath.match(/^product\/([a-f0-9-]+)$/);
 		const businessMatch = urlPath.match(/^business\/([a-f0-9-]+)$/);
+		const eventMatch =urlPath.match(/^event\/([a-f0-9-]+)$/);
 
 		let contentType = "";
 		let uuid = "";
@@ -59,9 +60,9 @@ app.get('/*', async (req, res) => {
 			uuid = productMatch[1];
 			finalUrl = `${process.env.APP_BASE_URL}/product/${uuid}?resolved=true`;
 			
-			// Fetch product details from your Laravel API
+			// Fetch product details from Laravel API
 			try {
-				const productResponse = await axios.get(`${process.env.APP_BASE_URL}/api/details/product/${uuid}`);
+				const productResponse = await axios.get(`${process.env.API_BASE_URL}/api/details/product/${uuid}`);
 				const product = productResponse.data.data;
 				
 				title = product.name || 'Product on Greep';
@@ -73,14 +74,33 @@ app.get('/*', async (req, res) => {
 				return res.sendFile(path.join(__dirname, '../../app/dist/index.html'));
 			}
 
-		} else if (businessMatch) {
+		} else if (eventMatch) {
+			contentType = "product";
+			uuid = eventMatch[1];
+			finalUrl = `${process.env.APP_BASE_URL}/product/${uuid}?resolved=true`;
+			
+			// Fetch product details from Laravel API
+			try {
+				const eventResponse = await axios.get(`${process.env.API_BASE_URL}/api/details/product/${uuid}`);
+				const event = eventResponse.data.data;
+				
+				title = event.name || 'Event on Greep';
+				description = event.description || `Check out this amazing event on our Greep`;
+				image = event.images?.[0]?.url|| '';
+				
+			} catch (error) {
+				console.log('Event not found, serving SPA');
+				return res.sendFile(path.join(__dirname, '../../app/dist/index.html'));
+			}
+
+		}else if (businessMatch) {
 			contentType = "business";
 			uuid = businessMatch[1];
 			finalUrl = `${process.env.APP_BASE_URL}/business/${uuid}?resolved=true`;
 			
 			// Fetch business details 
 			try {
-				const businessResponse = await axios.get(`${process.env.APP_BASE_URL}/api/details/business/${uuid}`);
+				const businessResponse = await axios.get(`${process.env.API_BASE_URL}/api/details/business/${uuid}`);
 				const business = businessResponse.data.data;
 				
 				title = business.business_name || 'Business on Greep';
