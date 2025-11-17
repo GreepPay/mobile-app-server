@@ -64,10 +64,10 @@ app.get('/*', async (req, res) => {
 			
 			// Fetch product details from Laravel API
 			try {
-				const productResponse = await axios.get(`${process.env.API_BASE_URL}/api/details/product/${uuid}`);
+				const productResponse = await axios.get(`${process.env.API_BASE_URL}/details/product/${uuid}`);
 				const product = productResponse.data.data;
 				
-				title = product.name || 'Product on Greep';
+				title = 'Buy ' + (product.name + ' on GreepPay')|| 'Product on GreepPay';
 				description = product.description || `Check out this amazing product on our Greep`;
 				image = product.images?.[0]?.url|| '';
 				
@@ -83,10 +83,10 @@ app.get('/*', async (req, res) => {
 			
 			// Fetch product details from Laravel API
 			try {
-				const eventResponse = await axios.get(`${process.env.API_BASE_URL}/api/details/product/${uuid}`);
+				const eventResponse = await axios.get(`${process.env.API_BASE_URL}/details/product/${uuid}`);
 				const event = eventResponse.data.data;
 				
-				title = event.name || 'Event on Greep';
+				title = 'Buy ' + (event.name + ' tickets on GreepPay')|| 'Event on GreepPay';
 				description = event.description || `Check out this amazing event on our Greep`;
 				image = event.images?.[0]?.url|| '';
 				
@@ -102,10 +102,10 @@ app.get('/*', async (req, res) => {
 			
 			// Fetch business details 
 			try {
-				const businessResponse = await axios.get(`${process.env.API_BASE_URL}/api/details/business/${uuid}`);
+				const businessResponse = await axios.get(`${process.env.API_BASE_URL}/details/business/${uuid}`);
 				const business = businessResponse.data.data;
 				
-				title = business.business_name || 'Business on Greep';
+				title = (business.business_name + ' on GreepPay') || 'Business on GreepPay';
 				description = business.description || `Discover this business on our Greep`;
 				image = business.logo || business.photo_url || '';
 				
