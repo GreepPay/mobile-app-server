@@ -39,12 +39,14 @@ app.get('/*', async (req, res) => {
 	if (urlIsResolved || !process.env.APP_BASE_URL) {
 		return res.sendFile(path.join(__dirname, '../../app/dist/index.html'));
 	}
-
+	if (!req.isBot) {
+		return res.sendFile(path.join(__dirname, "../../app/dist/index.html"));
+	}
 	try {
 		// Check if the path matches product or business pattern
-		const productMatch = urlPath.match(/^product\/([a-f0-9-]+)$/);
-		const businessMatch = urlPath.match(/^business\/([a-f0-9-]+)$/);
-		const eventMatch =urlPath.match(/^event\/([a-f0-9-]+)$/);
+		const productMatch = urlPath.match(/^products\/([a-f0-9-]+)$/);
+		const businessMatch = urlPath.match(/^merchants\/([a-f0-9-]+)$/);
+		const eventMatch =urlPath.match(/^events\/([a-f0-9-]+)$/);
 
 		let contentType = "";
 		let uuid = "";
@@ -58,7 +60,7 @@ app.get('/*', async (req, res) => {
 		if (productMatch) {
 			contentType = "product";
 			uuid = productMatch[1];
-			finalUrl = `${process.env.APP_BASE_URL}/product/${uuid}?resolved=true`;
+			finalUrl = `${process.env.APP_BASE_URL}/products/${uuid}?resolved=true`;
 			
 			// Fetch product details from Laravel API
 			try {
@@ -77,7 +79,7 @@ app.get('/*', async (req, res) => {
 		} else if (eventMatch) {
 			contentType = "product";
 			uuid = eventMatch[1];
-			finalUrl = `${process.env.APP_BASE_URL}/product/${uuid}?resolved=true`;
+			finalUrl = `${process.env.APP_BASE_URL}/products/${uuid}?resolved=true`;
 			
 			// Fetch product details from Laravel API
 			try {
@@ -96,7 +98,7 @@ app.get('/*', async (req, res) => {
 		}else if (businessMatch) {
 			contentType = "business";
 			uuid = businessMatch[1];
-			finalUrl = `${process.env.APP_BASE_URL}/business/${uuid}?resolved=true`;
+			finalUrl = `${process.env.APP_BASE_URL}/merchants/${uuid}?resolved=true`;
 			
 			// Fetch business details 
 			try {
