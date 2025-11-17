@@ -100,7 +100,7 @@ app.get('/*', async (req, res) => {
 		}else if (businessMatch) {
 			contentType = "business";
 			uuid = businessMatch[1];
-			finalUrl = `${process.env.APP_BASE_URL}/merchants/${uuid}?resolved=true`;
+			finalUrl = `${process.env.APP_BASE_URL}/shops/${uuid}?resolved=true`;
 			
 			// Fetch business details 
 			try {
