@@ -69,7 +69,8 @@ app.get('/*', async (req, res) => {
 				
 				title = 'Buy ' + (product.name + ' on GreepPay')|| 'Product on GreepPay';
 				description = product.description || `Check out this amazing product on our Greep`;
-				image = product.images?.[0]?.url|| '';
+				const images = JSON.parse(product.images || '[]');
+				image = images?.[0]?.url || '';
 				
 			} catch (error) {
 				console.log('Product not found, serving SPA');
@@ -88,7 +89,8 @@ app.get('/*', async (req, res) => {
 				
 				title = 'Buy ' + (event.name + ' tickets on GreepPay')|| 'Event on GreepPay';
 				description = event.description || `Check out this amazing event on our Greep`;
-				image = event.images?.[0]?.url|| '';
+				const images = JSON.parse(event.images || '[]');
+				image = images?.[0]?.url || '';
 				
 			} catch (error) {
 				console.log('Event not found, serving SPA');
