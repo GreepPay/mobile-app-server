@@ -4,6 +4,8 @@ const sharp = require("sharp");
 const express = require("express");
 const axios = require("axios");
 const isBot = require("isbot");
+const fs = require("fs");
+const crypto = require("crypto");
 
 // Load environment variables
 require("dotenv").config();
