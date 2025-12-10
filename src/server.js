@@ -84,9 +84,9 @@ app.get("/*", async (req, res) => {
   }
   try {
     // Check if the path matches product or business pattern
-    const productMatch = urlPath.match(/^products\/([a-f0-9-]+)$/);
-    const businessMatch = urlPath.match(/^shops\/([a-f0-9-]+)$/);
-    const eventMatch = urlPath.match(/^events\/([a-f0-9-]+)$/);
+    const productMatch = urlPath.match(/^products\/([a-f0-9-]+)/);
+    const businessMatch = urlPath.match(/^shops\/([a-f0-9-]+)/);
+    const eventMatch = urlPath.match(/^events\/([a-f0-9-]+)/);
 
     let contentType = "";
     let uuid = "";
