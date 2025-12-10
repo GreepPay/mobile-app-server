@@ -100,12 +100,14 @@ app.get("/*", async (req, res) => {
     if (productMatch) {
       contentType = "product";
       uuid = productMatch[1];
+      // Remove queries from uuid if any
+      let uuidWithoutQuery = uuid.split("?")[0];
       finalUrl = `${process.env.APP_BASE_URL}/products/${uuid}?resolved=true`;
 
       // Fetch product details from Laravel API
       try {
         const productResponse = await axios.get(
-          `${process.env.API_BASE_URL}/details/product/${uuid}`
+          `${process.env.API_BASE_URL}/details/product/${uuidWithoutQuery}`
         );
         const product = productResponse.data.data;
 
@@ -133,12 +135,14 @@ app.get("/*", async (req, res) => {
     } else if (eventMatch) {
       contentType = "product";
       uuid = eventMatch[1];
+      // Remove queries from uuid if any
+      let uuidWithoutQuery = uuid.split("?")[0];
       finalUrl = `${process.env.APP_BASE_URL}/products/${uuid}?resolved=true`;
 
       // Fetch product details from Laravel API
       try {
         const eventResponse = await axios.get(
-          `${process.env.API_BASE_URL}/details/product/${uuid}`
+          `${process.env.API_BASE_URL}/details/product/${uuidWithoutQuery}`
         );
         const event = eventResponse.data.data;
 
@@ -166,12 +170,14 @@ app.get("/*", async (req, res) => {
     } else if (businessMatch) {
       contentType = "business";
       uuid = businessMatch[1];
+      // Remove queries from uuid if any
+      let uuidWithoutQuery = uuid.split("?")[0];
       finalUrl = `${process.env.APP_BASE_URL}/shops/${uuid}?resolved=true`;
 
       // Fetch business details
       try {
         const businessResponse = await axios.get(
-          `${process.env.API_BASE_URL}/details/business/${uuid}`
+          `${process.env.API_BASE_URL}/details/business/${uuidWithoutQuery}`
         );
         const business = businessResponse.data.data;
 
